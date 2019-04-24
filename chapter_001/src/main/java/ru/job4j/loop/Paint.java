@@ -1,5 +1,7 @@
 package ru.job4j.loop;
 
+import java.util.function.BiPredicate;
+
 /**
  * Класс для построения пирамиды.
  *
@@ -10,49 +12,58 @@ package ru.job4j.loop;
 public class Paint {
 
     /**
-     * Метод для построения пирамиды.
+     * Метод для рисования правой части пирамиды
      *
      * @param height высота пирамиды
-     * @return строка, представляющая пирамиду
+     * @return строка с правой частью пирамиды
      */
     public String rightTrl(int height) {
-        StringBuilder screen = new StringBuilder();
-        int width = height;
-        for (int row = 0; row != height; row++) {
-            for (int column = 0; column != width; column++) {
-                if (row >= column) {
-                    screen.append("^");
-                } else {
-                    screen.append(" ");
-                }
-            }
-            screen.append(System.lineSeparator());
-        }
-        return screen.toString();
+        return this.loopBy(
+                height,
+                height,
+                (row, column) -> row >= column
+        );
     }
 
+    /**
+     * Метод для рисования левой части пирамиды
+     *
+     * @param height высота пирамиды
+     * @return строка с левой частью пирамиды
+     */
     public String leftTrl(int height) {
-        StringBuilder screen = new StringBuilder();
-        int width = height;
-        for (int row = 0; row != height; row++) {
-            for (int column = 0; column != width; column++) {
-                if (row >= width - column - 1) {
-                    screen.append("^");
-                } else {
-                    screen.append(" ");
-                }
-            }
-            screen.append(System.lineSeparator());
-        }
-        return screen.toString();
+        return this.loopBy(
+                height,
+                height,
+                (row, column) -> row >= height - column - 1
+        );
     }
 
+    /**
+     * Метод для рисования полной пирамиды
+     *
+     * @param height высота пирамиды
+     * @return строка с пирамидой
+     */
     public String pyramid(int height) {
+        return this.loopBy(
+                height,
+                2 * height - 1,
+                (row, column) -> row >= height - column - 1 && row + height - 1 >= column
+        );
+    }
+
+    /**
+     * @param height  высота пирамиды
+     * @param widht   ширина пирамиды
+     * @param predict условие отрисовывания знака ^
+     * @return строка с пирамидой
+     */
+    private String loopBy(int height, int widht, BiPredicate<Integer, Integer> predict) {
         StringBuilder screen = new StringBuilder();
-        int width = 2 * height - 1;
         for (int row = 0; row != height; row++) {
-            for (int column = 0; column != width; column++) {
-                if (row >= height - column - 1 && row + height - 1 >= column) {
+            for (int column = 0; column != widht; column++) {
+                if (predict.test(row, column)) {
                     screen.append("^");
                 } else {
                     screen.append(" ");
