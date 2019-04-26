@@ -15,15 +15,9 @@ public class Check {
      * @return true/false
      */
     public boolean mono(boolean[] data) {
-        boolean check = false;
-        int count = 0;
-        for (int i = 0; i < data.length; i++) {
-            if (count == 1 && data[i] != check) {
+        for (int i = 0; i < data.length - 1; i++) {
+            if (data[i] != data[i + 1]) {
                 return false;
-            }
-            if (data[i] != check) {
-                check = true;
-                count++;
             }
         }
         return true;
