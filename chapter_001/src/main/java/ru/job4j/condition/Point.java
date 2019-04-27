@@ -1,7 +1,7 @@
 package ru.job4j.condition;
 
 /**
- * Класс для вычисления расстояния методу точками в системе координат..
+ * Класс для вычисления расстояния методу точками в системе координат.
  *
  * @author Ilya Balov
  * @version 1
@@ -9,16 +9,32 @@ package ru.job4j.condition;
  */
 public class Point {
 
+    private int x;
+    private int y;
+
     /**
-     * Метод для вычисления расстояния методу точками
-     *
-     * @param x1 расположение первой точки на оси х.
-     * @param y1 расположение первой точки на оси y.
-     * @param x2 расположение второй точки на оси х.
-     * @param y2 расположение второй точки на оси y.
+     * Конструктор, который принимает начальное состояние объекта "точка".
+     * @param first координата x
+     * @param second координата y
+     */
+    public Point(int first, int second) {
+        this.x = first;
+        this.y = second;
+    }
+
+    /**
+     * Метод для вычисления расстояния методу точками.
+     * @param that Вторая точка
      * @return расстояние между двумя точками
      */
-    public double distance(int x1, int y1, int x2, int y2) {
-        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+    public double distance(Point that) {
+        return Math.sqrt(Math.pow((this.x - that.x), 2) + Math.pow((this.y - that.y), 2));
+    }
+
+    /**
+     * Метод выводит информацию о координатах точки.
+     */
+    public void info() {
+        System.out.println(String.format("Point[%s, %s]", this.x, this.y));
     }
 }
