@@ -9,6 +9,22 @@ package ru.job4j.condition;
  */
 public class Triangle {
 
+    private Point first;
+    private Point second;
+    private Point third;
+
+    /**
+     * Конструктор, который принимает три точки вершин треугольника.
+     * @param first вершина 1
+     * @param second вершина 2
+     * @param third вершина 3
+     */
+    public Triangle(Point first, Point second, Point third) {
+        this.first = first;
+        this.second = second;
+        this.third = third;
+    }
+
     /**
      * Метод вычисления периметра по длинам сторон.
      * <p>
@@ -32,11 +48,11 @@ public class Triangle {
      *
      * @return прощадь, если треугольник существует, или -1.
      */
-    public double area(int x1, int y1, int x2, int y2, int x3, int y3) {
+    public double area() {
         double rsl = -1;
-        double a = new Point().distance(x1, y1, x2, y2);
-        double b = new Point().distance(x2, y2, x3, y3);
-        double c = new Point().distance(x1, y1, x3, y3);
+        double a = first.distance(second);
+        double b = second.distance(third);
+        double c = third.distance(first);
         double p = perimeter(a, b, c);
         if (this.exist(a, b, c)) {
             rsl = Math.sqrt(p * (p - a) * (p - b) * (p - c));
@@ -52,7 +68,7 @@ public class Triangle {
      * @param a Длина от точки a b.
      * @param b Длина от точки a c.
      * @param c Длина от точки b c.
-     * @return
+     * @return boolean - существует ли треугольник
      */
     private boolean exist(double a, double c, double b) {
         return (a + b > c && a + c > b && b + c > a);
