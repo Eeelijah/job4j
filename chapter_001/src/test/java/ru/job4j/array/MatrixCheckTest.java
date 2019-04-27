@@ -15,31 +15,31 @@ import static org.junit.Assert.assertThat;
 public class MatrixCheckTest {
     @Test
     public void whenDataMonoByTrueThenTrue() {
-        MatrixCheck check = new MatrixCheck();
+        MatrixCheck checker = new MatrixCheck();
         boolean[][] input = new boolean[][]{
                 {true, true, true},
                 {false, true, true},
                 {true, false, true}
         };
-        boolean result = check.mono(input);
+        boolean result = checker.mono(input);
         assertThat(result, is(true));
     }
 
     @Test
     public void whenDataNotMonoByTrueThenFalse() {
-        MatrixCheck check = new MatrixCheck();
+        MatrixCheck checker = new MatrixCheck();
         boolean[][] input = new boolean[][]{
                 {true, true, false},
                 {false, false, true},
                 {true, false, true}
         };
-        boolean result = check.mono(input);
+        boolean result = checker.mono(input);
         assertThat(result, is(false));
     }
 
     @Test
     public void whenMatrix5x5ByTrueThenTrue() {
-        MatrixCheck check = new MatrixCheck();
+        MatrixCheck checker = new MatrixCheck();
         boolean[][] input = new boolean[][]{
                 {true, true, false, true, true},
                 {false, true, true, true, false},
@@ -47,18 +47,18 @@ public class MatrixCheckTest {
                 {true, true, false, true, false},
                 {true, false, true, false, true}
         };
-        boolean result = check.mono(input);
+        boolean result = checker.mono(input);
         assertThat(result, is(true));
     }
 
     @Test(expected = RuntimeException.class)
     public void whenIsNotMatrix() {
-        MatrixCheck check = new MatrixCheck();
+        MatrixCheck checker = new MatrixCheck();
         boolean[][] input = new boolean[][]{
                 {true, true, false},
                 {false, false, true}
         };
-        boolean result = check.mono(input);
+        boolean result = checker.mono(input);
         assertThat(result, is(false));
     }
 }

@@ -19,10 +19,10 @@ public class FindLoopTest {
      */
     @Test
     public void whenArrayHas5Then0() {
-        FindLoop find = new FindLoop();
+        FindLoop finder = new FindLoop();
         int[] input = new int[]{5, 10, 3};
         int value = 5;
-        int result = find.indexOf(input, value);
+        int result = finder.indexOf(input, value);
         int expect = 0;
         assertThat(result, is(expect));
     }
@@ -32,10 +32,10 @@ public class FindLoopTest {
      */
     @Test
     public void whenArrayHasNothingThenMinus1() {
-        FindLoop find = new FindLoop();
+        FindLoop finder = new FindLoop();
         int[] input = new int[]{5, 4, 3, 8};
         int value = 7;
-        int result = find.indexOf(input, value);
+        int result = finder.indexOf(input, value);
         int expect = -1;
         assertThat(result, is(expect));
     }

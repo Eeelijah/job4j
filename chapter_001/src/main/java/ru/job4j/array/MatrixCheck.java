@@ -16,7 +16,6 @@ public class MatrixCheck {
         if (data[0] != null && data.length != data[0].length) {
             throw new RuntimeException("Массив не является матрицей");
         }
-
         int length = data.length;
         for (int i = 0; i < length - 1; i++) {
             if (data[i][i] != data[i + 1][i + 1] || data[i][length - 1 - i] != data[i+1][length - 2 - i]) {

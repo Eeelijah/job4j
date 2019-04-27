@@ -5,7 +5,6 @@ import java.util.Arrays;
 public class ArrayDuplicate {
 
     public String[] remove(String[] array) {
-
         int unique = array.length;
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
@@ -18,7 +17,6 @@ public class ArrayDuplicate {
                 }
             }
         }
-
         for (int i = 0; i < array.length; i++) {
             if (array[i] != null) {
                 continue;
@@ -31,7 +29,6 @@ public class ArrayDuplicate {
                 }
             }
         }
-
         return Arrays.copyOf(array, unique);
     }
 }

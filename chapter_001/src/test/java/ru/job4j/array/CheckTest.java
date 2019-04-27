@@ -19,9 +19,9 @@ public class CheckTest {
      */
     @Test
     public void whenDataMonoByTrueThenTrue() {
-        Check check = new Check();
+        Check checker = new Check();
         boolean[] input = new boolean[]{true, true, true};
-        boolean result = check.mono(input);
+        boolean result = checker.mono(input);
         assertThat(result, is(true));
     }
 
@@ -30,9 +30,9 @@ public class CheckTest {
      */
     @Test
     public void whenDataNotMonoByTrueThenFalse() {
-        Check check = new Check();
+        Check checker = new Check();
         boolean[] input = new boolean[]{true, false, true};
-        boolean result = check.mono(input);
+        boolean result = checker.mono(input);
         assertThat(result, is(false));
     }
 }
