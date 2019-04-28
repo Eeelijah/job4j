@@ -43,4 +43,14 @@ public class MaxTest {
         int result = max.max(4, 4);
         assertThat(result, is(4));
     }
+
+    /**
+     * Test max method.
+     */
+    @Test
+    public void whenMax3To4To7Then7() {
+        Max max = new Max();
+        int result = max.max(3, 4, 7);
+        assertThat(result, is(7));
+    }
 }
