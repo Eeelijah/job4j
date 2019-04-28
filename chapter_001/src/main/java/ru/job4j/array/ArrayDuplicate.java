@@ -6,26 +6,12 @@ public class ArrayDuplicate {
 
     public String[] remove(String[] array) {
         int unique = array.length;
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == null) {
-                continue;
-            }
-            for (int j = i + 1; j < array.length; j++) {
-                if (array[i].equals(array[j])) {
-                    array[j] = null;
+        for (int out = 0; out < unique; out++) {
+            for (int in = out + 1; in < unique; in++) {
+                if (array[out].equals(array[in])) {
+                    array[in] = array[unique - 1];
                     unique--;
-                }
-            }
-        }
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] != null) {
-                continue;
-            }
-            for (int j = i; j < array.length; j++) {
-                if (array[j] != null) {
-                    array[i] = array[j];
-                    array[j] = null;
-                    break;
+                    in--;
                 }
             }
         }
