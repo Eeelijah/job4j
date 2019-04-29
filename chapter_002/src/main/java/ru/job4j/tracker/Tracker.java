@@ -37,15 +37,14 @@ public class Tracker {
      * @return boolean - удалось ли заменить объект
      */
     public boolean replace(String id, Item item) {
-        if (item == null) {
-            return false;
-        }
+        boolean result = false;
         int index = findIndexById(id);
-        if (index == -1) {
-            return false;
+        if (item != null && index != -1) {
+            item.setId(id);
+            items[index] = item;
+            result = true;
         }
-        items[index] = item;
-        return true;
+        return result;
     }
 
     /**
@@ -55,13 +54,15 @@ public class Tracker {
      * @return boolean - удалось ли удалить объект
      */
     public boolean delete(String id) {
+        boolean result = false;
         int index = findIndexById(id);
-        if (index == -1) {
-            return false;
+        if (index != -1) {
+            items[index] = null;
+            System.arraycopy(items, index + 1, items, index, items.length - index - 1);
+            position--;
+            result = true;
         }
-        items[index] = null;
-        System.arraycopy(items, index + 1, items, index, items.length - index - 1);
-        return true;
+        return result;
     }
 
     /**
@@ -70,15 +71,7 @@ public class Tracker {
      * @return массив с существующими заявками
      */
     public Item[] findAll() {
-        Item[] result = new Item[100];
-        int count = 0;
-        for (Item item : items) {
-            if (item != null) {
-                result[count] = item;
-                count++;
-            }
-        }
-        return Arrays.copyOf(result, count);
+        return Arrays.copyOf(items, position);
     }
 
     /**
@@ -93,13 +86,14 @@ public class Tracker {
         }
         Item[] result = new Item[100];
         int count = 0;
-        for (int i = 0; i < items.length; i++) {
+        for (int i = 0; i < position; i++) {
             if (items[i] != null && items[i].getName().equals(name)) {
                 result[count] = items[i];
                 count++;
             }
         }
-        return Arrays.copyOf(result, count);
+        result = Arrays.copyOf(result, count);
+        return result.length > 0 ? result : null;
     }
 
     /**
@@ -123,7 +117,7 @@ public class Tracker {
      * @return Уникальный ключ.
      */
     private String generateId(long time) {
-        return time * Math.random() + "";
+        return (int)((Math.random() * 100)) * time + "";
     }
 
     /**
@@ -137,7 +131,7 @@ public class Tracker {
         if (id == null) {
             return index;
         }
-        for (int i = 0; i < items.length; i++) {
+        for (int i = 0; i < position; i++) {
             if (items[i] != null && id.equals(items[i].getId())) {
                 index = i;
                 break;
