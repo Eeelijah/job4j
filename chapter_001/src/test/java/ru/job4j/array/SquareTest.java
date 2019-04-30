@@ -46,7 +46,7 @@ public class SquareTest {
         int bound = 12;
         Square square = new Square();
         int[] rst = square.calculate(bound);
-        int[] expect = new int[]{1, 4, 9, 16, 25, 36, 49, 64 ,81, 100, 121, 144};
+        int[] expect = new int[]{1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144};
         assertThat(rst, is(expect));
     }
 }

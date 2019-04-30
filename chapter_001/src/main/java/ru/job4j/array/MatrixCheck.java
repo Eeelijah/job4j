@@ -8,7 +8,6 @@ package ru.job4j.array;
 public class MatrixCheck {
 
     /**
-     *
      * @param data массив
      * @return boolean
      */
@@ -18,7 +17,7 @@ public class MatrixCheck {
         }
         int length = data.length;
         for (int i = 0; i < length - 1; i++) {
-            if (data[i][i] != data[i + 1][i + 1] || data[i][length - 1 - i] != data[i+1][length - 2 - i]) {
+            if (data[i][i] != data[i + 1][i + 1] || data[i][length - 1 - i] != data[i + 1][length - 2 - i]) {
                 return false;
             }
         }
