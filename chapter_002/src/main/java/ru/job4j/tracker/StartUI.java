@@ -110,8 +110,8 @@ public class StartUI {
         System.out.println("------------ Удаление существующей заявки --------------");
         String id = input.ask("Введите id заявки, которую хотите удалить:");
         boolean result = tracker.delete(id);
-        String output = result ? "------------ Заявка с id: '" + id + "' была успешно удалена. -----------" :
-                "------------ Заявки с id: " + id + " не существует. -----------";
+        String output = result ? "------------ Заявка с id: '" + id + "' была успешно удалена. -----------"
+                : "------------ Заявки с id: " + id + " не существует. -----------";
         System.out.println(output);
     }
 
@@ -136,8 +136,8 @@ public class StartUI {
         String desc = input.ask("Введите описание новой заявки:");
         Item item = new Item(name, desc, System.currentTimeMillis());
         boolean result = tracker.replace(id, item);
-        String output = result ? "------------ Заявка с id: '" + id + "' была успешно заменена. -----------" :
-                "------------ Заявки с id: '" + id + "' не существует. -----------";
+        String output = result ? "------------ Заявка с id: '" + id + "' была успешно заменена. -----------"
+                : "------------ Заявки с id: '" + id + "' не существует. -----------";
         System.out.println(output);
     }
 
@@ -148,8 +148,8 @@ public class StartUI {
         System.out.println("------------ Поиск заявки по id --------------");
         String id = input.ask("Введите id заявки, которую хотите найти:");
         Item item = tracker.findById(id);
-        String output = item != null ? "------------ Найдена заявка: " + item.toString() + ". -----------" :
-                "------------ Заявки с id: '" + id + "' не существует. -----------";
+        String output = item != null ? "------------ Найдена заявка: " + item.toString() + ". -----------"
+                : "------------ Заявки с id: '" + id + "' не существует. -----------";
         System.out.println(output);
     }
 

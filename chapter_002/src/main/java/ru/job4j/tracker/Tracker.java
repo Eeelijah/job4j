@@ -117,7 +117,7 @@ public class Tracker {
      * @return Уникальный ключ.
      */
     private String generateId(long time) {
-        return (int)((Math.random() * 100)) * time + "";
+        return (int) ((Math.random() * 100)) * time + "";
     }
 
     /**
