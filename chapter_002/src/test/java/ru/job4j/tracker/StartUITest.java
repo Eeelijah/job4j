@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
@@ -18,7 +19,7 @@ public class StartUITest {
 
     @Before
     public void loadOutput() {
-        System.setOut(new PrintStream(this.out));
+        System.setOut(new PrintStream(this.out, false, StandardCharsets.UTF_8));
     }
 
     @After
@@ -63,7 +64,7 @@ public class StartUITest {
         String separator = System.lineSeparator();
 
         assertThat(
-                this.out.toString(),
+                this.out.toString(StandardCharsets.UTF_8),
                 is(
                         new StringBuilder()
                                 .append(separator)
@@ -103,7 +104,7 @@ public class StartUITest {
         String separator = System.lineSeparator();
 
         assertThat(
-                this.out.toString(),
+                this.out.toString(StandardCharsets.UTF_8),
                 is(
                         new StringBuilder()
                                 .append(separator)
@@ -143,7 +144,7 @@ public class StartUITest {
         String separator = System.lineSeparator();
 
         assertThat(
-                this.out.toString(),
+                this.out.toString(StandardCharsets.UTF_8),
                 is(
                         new StringBuilder()
                                 .append(separator)
