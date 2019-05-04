@@ -19,8 +19,17 @@ public class ConsoleInput implements Input {
     }
 
     @Override
+    @SuppressWarnings("Duplicates")
     public int ask(String question, List<Integer> range) {
         int key = Integer.valueOf(this.ask(question));
+        if (!exist(key, range)) {
+            throw new MenuOutException("Out of menu range");
+        }
+        return key;
+    }
+
+    @SuppressWarnings("Duplicates")
+    private boolean exist(int key, List<Integer> range) {
         boolean exist = false;
         for (int value : range) {
             if (value == key) {
@@ -28,10 +37,6 @@ public class ConsoleInput implements Input {
                 break;
             }
         }
-        if (exist) {
-            return key;
-        } else {
-            throw new MenuOutException("Out of menu range");
-        }
+        return exist;
     }
 }
