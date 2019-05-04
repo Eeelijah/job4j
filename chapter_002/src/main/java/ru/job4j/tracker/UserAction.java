@@ -19,5 +19,5 @@ public interface UserAction {
      * Метод возвращает информацию о данном пункте меню.
      * @return Строка меню
      */
-    String  info();
+    String info();
 }

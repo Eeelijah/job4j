@@ -1,10 +1,9 @@
 package ru.job4j.tracker;
 
-public class FindItemById implements UserAction {
+public class FindItemById extends BaseAction {
 
-    @Override
-    public int key() {
-        return 4;
+    public FindItemById(int key, String name) {
+        super(key, name);
     }
 
     @Override
@@ -15,10 +14,5 @@ public class FindItemById implements UserAction {
         String output = item != null ? "------------ Найдена заявка: " + item.toString() + ". -----------"
                 : "------------ Заявки с id: '" + id + "' не существует. -----------";
         System.out.println(output);
-    }
-
-    @Override
-    public String info() {
-        return "4. Найти заявку по id";
     }
 }
