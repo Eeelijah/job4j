@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * @author Ilya Balov
  * @version 1
@@ -13,4 +15,6 @@ public interface Input {
      * @return ответ от пользователя
      */
     String ask(String question);
+
+    int ask(String question, List<Integer> range);
 }
