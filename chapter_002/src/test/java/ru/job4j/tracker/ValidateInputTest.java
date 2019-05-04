@@ -39,4 +39,16 @@ public class ValidateInputTest {
         assertThat(this.mem.toString(), is("Вы ввели текст. Пожалуйста повторите ввод пункта меню.\r\n")
         );
     }
+
+    @Test
+    public void whenInputIsNotInRange() {
+        ValidateInput input = new ValidateInput(new StubInput(new String[]{"8", "1"}));
+        List<Integer> range = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            range.add(i);
+        }
+        input.ask("Enter", range);
+        assertThat(this.mem.toString(), is("Выбран неверный пункт меню. Повторите снова.\r\n")
+        );
+    }
 }
