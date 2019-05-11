@@ -2,7 +2,8 @@ package ru.job4j.condition;
 
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -26,6 +27,14 @@ public class PointTest {
         second.info();
         System.out.println(String.format("Result is %s", result));
         assertThat(result, is(10D));
+    }
+
+    @Test
+    public void whenZeroAndFiveAndTenThenTen() {
+        Point first = new Point(0, 0, 0);
+        Point second = new Point(0, 5, 10);
+        double result = first.distance3d(second);
+        assertEquals(result, 11.1803d, 0.0001);
     }
 
     @Test
