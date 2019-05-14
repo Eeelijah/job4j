@@ -1,0 +1,16 @@
+language: java
+sudo: false
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+env:
+  global:
+    - CODECOV_TOKEN="186072ee-6ee4-45bd-863d-84a940534abb"
+
+notifications:
+  email:
+    recipients:
+      -ilays2011@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: always
