@@ -17,14 +17,18 @@ public class PriorityQueue {
         }
 
         ListIterator<Task> iterator = tasks.listIterator();
-
+        boolean added = true;
         while (iterator.hasNext()) {
             Task next = iterator.next();
             if (next.getPriority() > task.getPriority()) {
                 iterator.set(task);
                 iterator.add(next);
+                added = false;
                 break;
             }
+        }
+        if (!added) {
+            tasks.add(task);
         }
     }
 
