@@ -21,11 +21,15 @@ public class User implements Comparable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user2 = (User) o;
-        return age == user2.age &&
-                Objects.equals(name, user2.name);
+        return age == user2.age
+                && Objects.equals(name, user2.name);
     }
 
     @Override

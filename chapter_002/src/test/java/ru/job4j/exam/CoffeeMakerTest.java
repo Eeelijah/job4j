@@ -19,7 +19,7 @@ public class CoffeeMakerTest {
     public void whenPrice50andCost32() {
         CoffeeMaker coffeeMaker = new CoffeeMaker();
         int[] result = coffeeMaker.changes(50, 32);
-        int[] expected = {10, 5, 2 ,1};
+        int[] expected = {10, 5, 2, 1};
         assertThat(result, is(expected));
     }
 }

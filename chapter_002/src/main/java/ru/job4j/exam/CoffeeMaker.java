@@ -3,16 +3,16 @@ package ru.job4j.exam;
 import java.util.Arrays;
 
 public class CoffeeMaker {
-    private Integer [] COINS = {10, 5, 2, 1};
+    private Integer[] coins = {10, 5, 2, 1};
 
     public int[] changes(int bill, int price) {
         int rest = bill - price;
-        Arrays.sort(COINS, (o1, o2) -> Integer.compare(o2, o1));
+        Arrays.sort(coins, (o1, o2) -> Integer.compare(o2, o1));
 
-        int[] count = new int[COINS.length];
-        for (int i = 0; i < COINS.length; i++) {
-            count[i] = rest / COINS[i];
-            rest -= COINS[i] * count[i];
+        int[] count = new int[coins.length];
+        for (int i = 0; i < coins.length; i++) {
+            count[i] = rest / coins[i];
+            rest -= coins[i] * count[i];
         }
 
         int resultSize = 0;
@@ -22,8 +22,8 @@ public class CoffeeMaker {
         int[] result = new int[resultSize];
 
         int lastIndex = 0;
-        for (int i = 0; i < COINS.length; i++) {
-            addChange(result, COINS[i], count[i], lastIndex);
+        for (int i = 0; i < coins.length; i++) {
+            addChange(result, coins[i], count[i], lastIndex);
             lastIndex += count[i];
         }
         return result;
