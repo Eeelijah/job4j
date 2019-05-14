@@ -36,8 +36,7 @@ public class ValidateInputTest {
             range.add(i);
         }
         input.ask("Enter", range);
-        assertThat(this.mem.toString(), is("Вы ввели текст. Пожалуйста повторите ввод пункта меню.\r\n")
-        );
+        assertThat(this.mem.toString(), is(String.format("Вы ввели текст. Пожалуйста повторите ввод пункта меню.%s", System.lineSeparator())));
     }
 
     @Test
@@ -48,7 +47,6 @@ public class ValidateInputTest {
             range.add(i);
         }
         input.ask("Enter", range);
-        assertThat(this.mem.toString(), is("Выбран неверный пункт меню. Повторите снова.\r\n")
-        );
+        assertThat(this.mem.toString(), is(String.format("Выбран неверный пункт меню. Повторите снова.%s", System.lineSeparator())));
     }
 }

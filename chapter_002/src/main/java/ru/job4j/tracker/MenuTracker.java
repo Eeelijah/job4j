@@ -60,7 +60,7 @@ public class MenuTracker {
     }
 
     public void show() {
-        System.out.println("\r\nМЕНЮ ВЫБОРА:");
+        System.out.println(String.format("%sМЕНЮ ВЫБОРА:", System.lineSeparator()));
         for (UserAction action : this.actions) {
             System.out.println(action.info());
         }

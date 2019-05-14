@@ -43,7 +43,7 @@ public class StartUI {
         }
         while (!exit) {
             menu.show();
-            menu.select(this.input.ask("Введите пункт меню:\r\n", range));
+            menu.select(this.input.ask(String.format("Введите пункт меню:%s", System.lineSeparator()), range));
         }
     }
 

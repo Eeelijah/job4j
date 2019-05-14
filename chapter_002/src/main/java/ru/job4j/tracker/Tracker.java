@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ilya Balov
@@ -11,12 +12,7 @@ public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[100];
-
-    /**
-     * Указатель ячейки для новой заявки.
-     */
-    private int position = 0;
+    private final List<Item> items = new ArrayList<>();
 
     /**
      * Метод, реализаущий добавление заявки в хранилище.
@@ -25,7 +21,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId(item.getTime()));
-        this.items[this.position++] = item;
+        this.items.add(item);
         return item;
     }
 
@@ -41,7 +37,7 @@ public class Tracker {
         int index = findIndexById(id);
         if (item != null && index != -1) {
             item.setId(id);
-            items[index] = item;
+            items.set(index, item);
             result = true;
         }
         return result;
@@ -57,9 +53,7 @@ public class Tracker {
         boolean result = false;
         int index = findIndexById(id);
         if (index != -1) {
-            items[index] = null;
-            System.arraycopy(items, index + 1, items, index, items.length - index - 1);
-            position--;
+            items.remove(index);
             result = true;
         }
         return result;
@@ -70,8 +64,8 @@ public class Tracker {
      *
      * @return массив с существующими заявками
      */
-    public Item[] findAll() {
-        return Arrays.copyOf(items, position);
+    public List<Item> findAll() {
+        return this.items;
     }
 
     /**
@@ -80,20 +74,18 @@ public class Tracker {
      * @param name имя
      * @return массив заявок из items с заданным именем
      */
-    public Item[] findByName(String name) {
+    public List<Item> findByName(String name) {
         if (name == null) {
             return null;
         }
-        Item[] result = new Item[100];
-        int count = 0;
-        for (int i = 0; i < position; i++) {
-            if (items[i] != null && items[i].getName().equals(name)) {
-                result[count] = items[i];
-                count++;
+        List<Item> result = new ArrayList<>();
+
+        for (Item item : items) {
+            if (item != null && item.getName().equals(name)) {
+                result.add(item);
             }
         }
-        result = Arrays.copyOf(result, count);
-        return result.length > 0 ? result : null;
+        return result;
     }
 
     /**
@@ -107,7 +99,7 @@ public class Tracker {
         if (index == -1) {
             return null;
         }
-        return items[index];
+        return items.get(index);
     }
 
     /**
@@ -131,8 +123,8 @@ public class Tracker {
         if (id == null) {
             return index;
         }
-        for (int i = 0; i < position; i++) {
-            if (items[i] != null && id.equals(items[i].getId())) {
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i) != null && id.equals(items.get(i).getId())) {
                 index = i;
                 break;
             }
