@@ -3,30 +3,30 @@ package ru.job4j.tracker;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-import org.junit.After;
-
-
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ValidateInputTest {
-    private final ByteArrayOutputStream mem = new ByteArrayOutputStream();
-    private final PrintStream out = System.out;
 
-    @Before
-    public void loadMem() {
-        System.setOut(new PrintStream(this.mem));
-    }
+    private ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private final Consumer<String> output = new Consumer<>() {
+        private PrintStream stdout = new PrintStream(out);
 
-    @After
-    public void loadSys() {
-        System.setOut(out);
-    }
+        @Override
+        public void accept(String s) {
+            stdout.println(s);
+        }
+
+        @Override
+        public String toString() {
+            return out.toString();
+        }
+    };
 
     @Test
     public void whenInvalidInput() {
@@ -35,8 +35,8 @@ public class ValidateInputTest {
         for (int i = 0; i < 7; i++) {
             range.add(i);
         }
-        input.ask("Enter", range);
-        assertThat(this.mem.toString(), is(String.format("Вы ввели текст. Пожалуйста повторите ввод пункта меню.%s", System.lineSeparator())));
+        input.ask("Enter", range, this.output);
+        assertThat(this.output.toString(), is(String.format("Вы ввели текст. Пожалуйста повторите ввод пункта меню.%s", System.lineSeparator())));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ValidateInputTest {
         for (int i = 0; i < 7; i++) {
             range.add(i);
         }
-        input.ask("Enter", range);
-        assertThat(this.mem.toString(), is(String.format("Выбран неверный пункт меню. Повторите снова.%s", System.lineSeparator())));
+        input.ask("Enter", range, this.output);
+        assertThat(this.output.toString(), is(String.format("Выбран неверный пункт меню. Повторите снова.%s", System.lineSeparator())));
     }
 }

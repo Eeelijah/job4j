@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class StubInput implements Input {
 
@@ -33,14 +34,14 @@ public class StubInput implements Input {
      * при следующем вызове он вернет нам новое значение.
      */
     @Override
-    public String ask(String question) {
+    public String ask(String question, Consumer<String> output) {
         return answers[position++];
     }
 
     @Override
     @SuppressWarnings("Duplicates")
-    public int ask(String question, List<Integer> range) {
-        int key = Integer.valueOf(this.ask(question));
+    public int ask(String question, List<Integer> range, Consumer<String> output) {
+        int key = Integer.valueOf(this.ask(question, output));
         if (!exist(key, range)) {
             throw new MenuOutException("Out of menu range");
         }

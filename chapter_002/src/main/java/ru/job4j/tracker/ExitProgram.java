@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 public class ExitProgram extends BaseAction {
     private final StartUI ui;
 
@@ -9,8 +11,8 @@ public class ExitProgram extends BaseAction {
     }
 
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Завершение работы программы... --------------");
+    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+        output.accept("------------ Завершение работы программы... --------------");
         ui.stop();
     }
 }

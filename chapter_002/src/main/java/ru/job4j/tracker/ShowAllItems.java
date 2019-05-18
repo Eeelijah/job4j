@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class ShowAllItems extends BaseAction {
 
@@ -9,11 +9,10 @@ public class ShowAllItems extends BaseAction {
     }
 
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Вывод всех заявок --------------");
-        List<Item> items = tracker.findAll();
-        for (Item item : items) {
-            System.out.println(item.toString());
+    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+        output.accept("------------ Вывод всех заявок --------------");
+        for (Item item : tracker.findAll()) {
+            output.accept(item.toString());
         }
     }
 }

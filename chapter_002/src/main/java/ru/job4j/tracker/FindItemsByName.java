@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class FindItemsByName extends BaseAction {
 
@@ -9,17 +10,17 @@ public class FindItemsByName extends BaseAction {
     }
 
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Поиск заявки по имени --------------");
-        String name = input.ask("Введите имя заявки, которую хотите найти:");
+    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+        output.accept("------------ Поиск заявки по имени --------------");
+        String name = input.ask("Введите имя заявки, которую хотите найти:", output);
         List<Item> found = tracker.findByName(name);
         if (found != null) {
-            System.out.println("------------ Найдены заявки: -----------");
+            output.accept("------------ Найдены заявки: -----------");
             for (Item item : found) {
-                System.out.println(item.toString());
+                output.accept(item.toString());
             }
         } else {
-            System.out.println("------------ Заявок с именем: '" + name + "' не существует. -----------");
+            output.accept("------------ Заявок с именем: '" + name + "' не существует. -----------");
         }
     }
 }

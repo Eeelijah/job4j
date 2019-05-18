@@ -1,12 +1,10 @@
 package ru.job4j.tracker;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
+import java.util.function.Consumer;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
@@ -17,21 +15,25 @@ public class StartUITest {
     private PrintStream stdout = System.out;
     private ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-    @Before
-    public void loadOutput() {
-        System.setOut(new PrintStream(this.out, false, StandardCharsets.UTF_8));
-    }
+    private final Consumer<String> output = new Consumer<String>() {
+        private final PrintStream stdout = new PrintStream(out);
 
-    @After
-    public void backOutput() {
-        System.setOut(this.stdout);
-    }
+        @Override
+        public void accept(String s) {
+            stdout.println(s);
+        }
+
+        @Override
+        public String toString() {
+            return out.toString();
+        }
+    };
 
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(tracker.findAll().get(0).getName(), is("test name"));
     }
 
@@ -40,7 +42,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "desc", System.currentTimeMillis()));
         Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(tracker.findById(item.getId()).getName(), is("test replace"));
     }
 
@@ -49,7 +51,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "desc", System.currentTimeMillis()));
         Input input = new StubInput(new String[]{"3", item.getId(), "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         assertThat(tracker.findById(item.getId()), is(nullValue()));
     }
 
@@ -60,11 +62,11 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("test name2", "desc2", System.currentTimeMillis()));
         Item item3 = tracker.add(new Item("test name3", "desc3", System.currentTimeMillis()));
         Input input = new StubInput(new String[]{"1", "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         String separator = System.lineSeparator();
 
         assertThat(
-                this.out.toString(StandardCharsets.UTF_8),
+                this.output.toString(),
                 is(
                         new StringBuilder()
                                 .append(separator)
@@ -100,11 +102,11 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name1", "desc1", System.currentTimeMillis()));
         Input input = new StubInput(new String[]{"4", item.getId(), "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         String separator = System.lineSeparator();
 
         assertThat(
-                this.out.toString(StandardCharsets.UTF_8),
+                this.output.toString(),
                 is(
                         new StringBuilder()
                                 .append(separator)
@@ -140,11 +142,11 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("test name1", "desc2", System.currentTimeMillis()));
         Item item3 = tracker.add(new Item("test name3", "desc3", System.currentTimeMillis()));
         Input input = new StubInput(new String[]{"5", item1.getName(), "6"});
-        new StartUI(input, tracker).init();
+        new StartUI(input, tracker, output).init();
         String separator = System.lineSeparator();
 
         assertThat(
-                this.out.toString(StandardCharsets.UTF_8),
+                this.output.toString(),
                 is(
                         new StringBuilder()
                                 .append(separator)

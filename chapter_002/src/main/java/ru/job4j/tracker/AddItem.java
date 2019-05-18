@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 public class AddItem extends BaseAction {
 
     public AddItem(int key, String name) {
@@ -7,12 +9,12 @@ public class AddItem extends BaseAction {
     }
 
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Добавление новой заявки --------------");
-        String name = input.ask("Введите имя заявки:");
-        String desc = input.ask("Введите описание заявки:");
+    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+        output.accept("------------ Добавление новой заявки --------------");
+        String name = input.ask("Введите имя заявки:", output);
+        String desc = input.ask("Введите описание заявки:", output);
         Item item = new Item(name, desc, System.currentTimeMillis());
         tracker.add(item);
-        System.out.println("------------ Новая заявка с id: '" + item.getId() + "' -----------");
+        output.accept("------------ Новая заявка с id: '" + item.getId() + "' -----------");
     }
 }
